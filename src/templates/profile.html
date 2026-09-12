@@ -1,0 +1,223 @@
+{% extends "base.html" %}
+
+{% block title %}Мой профиль — LZORA{% endblock %}
+
+{% block content %}
+
+<section class="page-section profile-page">
+
+    <div class="container">
+
+        <div class="section-heading profile-page__heading">
+
+            <h1 class="section-heading__title">
+                Мой профиль
+            </h1>
+
+            <p class="section-heading__description">
+                Управляйте личными данными и своими записями.
+            </p>
+
+        </div>
+
+        <div class="profile-layout">
+
+            <main class="profile-content">
+
+                <section class="card profile-card">
+
+                    <div class="profile-card__header">
+
+                        <div class="profile-avatar">
+                            АП
+                        </div>
+
+                        <div>
+
+                            <h2 class="profile-card__name">
+                                Алексей Петров
+                            </h2>
+
+                            <p class="profile-card__email">
+                                alexey@example.com
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="profile-info">
+
+                        <div class="profile-info__item">
+
+                            <span>Имя</span>
+
+                            <strong>
+                                Алексей Петров
+                            </strong>
+
+                        </div>
+
+                        <div class="profile-info__item">
+
+                            <span>Email</span>
+
+                            <strong>
+                                alexey@example.com
+                            </strong>
+
+                        </div>
+
+                        <div class="profile-info__item">
+
+                            <span>Телефон</span>
+
+                            <strong>
+                                +7 (900) 000-00-00
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                    <button
+                        type="button"
+                        class="button button--secondary"
+                        data-edit-profile
+                    >
+                        Редактировать профиль
+                    </button>
+
+                </section>
+
+
+                <section class="page-section page-section--nested">
+
+                    <div class="section-heading">
+
+                        <h2 class="section-heading__title">
+                            Ближайшая запись
+                        </h2>
+
+                    </div>
+
+                    <div class="card booking-preview-card">
+
+                        <div class="booking-preview-card__main">
+
+                            <div class="booking-preview-card__photo">
+
+                                <img
+                                    src="{{ url_for(
+                                        'static',
+                                        filename='images/specialist-anna.jpg'
+                                    ) }}"
+                                    alt="Анна Петрова"
+                                >
+
+                            </div>
+
+                            <div>
+
+                                <h3>
+                                    Анна Петрова
+                                </h3>
+
+                                <p>
+                                    {{ service.name if service else
+                                    "Индивидуальное занятие" }}
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                        <div class="booking-preview-card__details">
+
+                            <div>
+                                <span>Дата</span>
+                                <strong>12 сентября</strong>
+                            </div>
+
+                            <div>
+                                <span>Время</span>
+                                <strong>16:30</strong>
+                            </div>
+
+                            <div>
+                                <span>Формат</span>
+                                <strong>Онлайн</strong>
+                            </div>
+
+                        </div>
+
+                        <div class="booking-preview-card__actions">
+
+                            <a
+                                href="#"
+                                class="button button--secondary button--small"
+                            >
+                                Подробнее
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+            </main>
+
+
+            <aside class="profile-sidebar">
+
+                <nav class="card profile-navigation">
+
+                    <a
+                        href="#"
+                        class="profile-navigation__item is-active"
+                    >
+                        <span>Профиль</span>
+                    </a>
+
+                    <a
+                        href="#"
+                        class="profile-navigation__item"
+                    >
+                        <span>Мои записи</span>
+                    </a>
+
+                    <a
+                        href="#"
+                        class="profile-navigation__item"
+                    >
+                        <span>Избранное</span>
+                    </a>
+
+                    <a
+                        href="#"
+                        class="profile-navigation__item"
+                    >
+                        <span>Настройки</span>
+                    </a>
+
+                    <a
+                        href="#"
+                        class="profile-navigation__item profile-navigation__item--danger"
+                    >
+                        <span>Выйти</span>
+                    </a>
+
+                </nav>
+
+            </aside>
+
+        </div>
+
+    </div>
+
+</section>
+
+<div class="toast" data-toast aria-hidden="true"></div>
+
+{% endblock %}
