@@ -1,0 +1,56 @@
+from flask import Flask, render_template, request
+
+
+@app.route("/specialist/<int:specialist_id>")
+def specialist(specialist_id):
+    if specialist_id != SPECIALIST["id"]:
+        return "Специалист не найден", 404
+
+    return render_template(
+        "specialist.html",
+        specialist=SPECIALIST,
+        services=SERVICES,
+        schedule=SCHEDULE,
+    )
+
+
+@app.route("/schedule")
+def schedule():
+    specialist_id = request.args.get("specialist", 1, type=int)
+
+    if specialist_id != SPECIALIST["id"]:
+        return "Специалист не найден", 404
+
+    return render_template(
+        "schedule.html",
+        specialist=SPECIALIST,
+        services=SERVICES,
+        schedule=SCHEDULE,
+    )
+
+
+@app.route("/booking")
+def booking():
+    specialist_id = request.args.get("specialist", 1, type=int)
+    service_id = request.args.get("service", 1, type=int)
+    booking_date = request.args.get("date", "12 сентября")
+    booking_time = request.args.get("time", "16:30")
+
+    if specialist_id != SPECIALIST["id"]:
+        return "Специалист не найден", 404
+
+    service = next(
+        (item for item in SERVICES if item["id"] == service_id),
+        None
+    )
+
+    if service is None:
+        return "Услуга не найдена", 404
+
+    return render_template(
+        "booking.html",
+        specialist=SPECIALIST,
+        service=service,
+        booking_date=booking_date,
+        booking_time=booking_time,
+    )
