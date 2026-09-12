@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+
+{% block title %}Регистрация — LZORA{% endblock %}
+
+{% block content %}
+
+<section class="page-section auth-page">
+
+    <div class="container">
+
+        <div class="auth-layout">
+
+            <div class="auth-card card">
+
+                <div class="section-heading auth-card__heading">
+
+                    <h1 class="section-heading__title">
+                        Создать аккаунт
+                    </h1>
+
+                    <p class="section-heading__description">
+                        Зарегистрируйтесь, чтобы записываться
+                        к специалистам и управлять своими записями.
+                    </p>
+
+                </div>
+
+                <form
+                    class="auth-form"
+                    data-register-form
+                    novalidate
+                >
+
+                    <div class="form-group">
+
+                        <label
+                            class="form-label"
+                            for="register-name"
+                        >
+                            Имя
+                        </label>
+
+                        <input
+                            id="register-name"
+                            name="name"
+                            type="text"
+                            class="form-control"
+                            placeholder="Ваше имя"
+                            autocomplete="name"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label
+                            class="form-label"
+                            for="register-email"
+                        >
+                            Email
+                        </label>
+
+                        <input
+                            id="register-email"
+                            name="email"
+                            type="email"
+                            class="form-control"
+                            placeholder="example@mail.ru"
+                            autocomplete="email"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label
+                            class="form-label"
+                            for="register-password"
+                        >
+                            Пароль
+                        </label>
+
+                        <input
+                            id="register-password"
+                            name="password"
+                            type="password"
+                            class="form-control"
+                            placeholder="Придумайте пароль"
+                            autocomplete="new-password"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label
+                            class="form-label"
+                            for="register-password-confirm"
+                        >
+                            Повторите пароль
+                        </label>
+
+                        <input
+                            id="register-password-confirm"
+                            name="password_confirm"
+                            type="password"
+                            class="form-control"
+                            placeholder="Повторите пароль"
+                            autocomplete="new-password"
+                            required
+                        >
+
+                    </div>
+
+                    <label class="auth-checkbox auth-checkbox--terms">
+
+                        <input
+                            type="checkbox"
+                            name="terms"
+                            required
+                        >
+
+                        <span>
+                            Я принимаю правила сервиса
+                            и политику конфиденциальности.
+                        </span>
+
+                    </label>
+
+                    <button
+                        type="submit"
+                        class="button button--primary button--full"
+                    >
+                        Зарегистрироваться
+                    </button>
+
+                </form>
+
+                <div class="auth-card__footer">
+
+                    <span>
+                        Уже есть аккаунт?
+                    </span>
+
+                    <a href="{{ url_for('login') }}">
+                        Войти
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<div class="toast" data-toast aria-hidden="true"></div>
+
+{% endblock %}
