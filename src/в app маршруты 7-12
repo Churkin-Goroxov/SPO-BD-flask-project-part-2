@@ -1,0 +1,79 @@
+@app.route("/payment")
+def payment():
+    specialist_id = request.args.get("specialist", 1, type=int)
+    service_id = request.args.get("service", 1, type=int)
+
+    booking_date = request.args.get("date", "12 сентября")
+    booking_time = request.args.get("time", "16:30")
+
+    if specialist_id != SPECIALIST["id"]:
+        return "Специалист не найден", 404
+
+    service = next(
+        (item for item in SERVICES if item["id"] == service_id),
+        None
+    )
+
+    if service is None:
+        return "Услуга не найдена", 404
+
+    return render_template(
+        "payment.html",
+        specialist=SPECIALIST,
+        service=service,
+        booking_date=booking_date,
+        booking_time=booking_time,
+    )
+
+
+@app.route("/success")
+def success():
+    specialist_id = request.args.get("specialist", 1, type=int)
+    service_id = request.args.get("service", 1, type=int)
+
+    booking_date = request.args.get("date", "12 сентября")
+    booking_time = request.args.get("time", "16:30")
+
+    if specialist_id != SPECIALIST["id"]:
+        return "Специалист не найден", 404
+
+    service = next(
+        (item for item in SERVICES if item["id"] == service_id),
+        None
+    )
+
+    if service is None:
+        return "Услуга не найдена", 404
+
+    return render_template(
+        "success.html",
+        specialist=SPECIALIST,
+        service=service,
+        booking_date=booking_date,
+        booking_time=booking_time,
+    )
+
+
+@app.route("/how-it-works")
+def how_it_works():
+    return render_template("how_it_works.html")
+
+
+@app.route("/login")
+def login():
+    return render_template("login.html")
+
+
+@app.route("/register")
+def register():
+    return render_template("register.html")
+
+
+@app.route("/profile")
+def profile():
+    service = SERVICES[0] if SERVICES else None
+
+    return render_template(
+        "profile.html",
+        service=service,
+    )
