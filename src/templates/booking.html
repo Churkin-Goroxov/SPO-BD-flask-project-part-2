@@ -1,0 +1,250 @@
+{% extends "base.html" %}
+
+{% block title %}
+Оформление записи — LZORA
+{% endblock %}
+
+{% block content %}
+
+<section class="page-section">
+    <div class="container">
+
+        <a
+            href="{{ url_for('schedule', specialist_id=specialist.id) }}"
+            class="back-link"
+        >
+            ← Назад к расписанию
+        </a>
+
+        <div class="section-heading">
+            <h1 class="section-heading__title">
+                Оформление записи
+            </h1>
+            <p class="section-heading__description">
+                Проверьте данные записи и укажите контактную информацию.
+            </p>
+        </div>
+
+
+        <div class="booking-layout">
+            <main class="booking-content">
+
+                <section class="card booking-specialist">
+
+                    <div class="booking-specialist__photo">
+                        <img
+                            src="{{ url_for(
+                                'static',
+                                filename='images/specialist-anna.jpg'
+                            ) }}"
+                            alt="{{ specialist.name }}"
+                        >
+                    </div>
+
+                    <div class="booking-specialist__info">
+                        <h2>
+                            {{ specialist.name }}
+                        </h2>
+                        <p>
+                            {{ specialist.title }}
+                        </p>
+
+                        <div class="booking-details">
+
+                            <div class="booking-detail">
+                                <span>
+                                    Услуга
+                                </span>
+                                <strong>
+                                    {{ service.name }}
+                                </strong>
+                            </div>
+
+                            <div class="booking-detail">
+                                <span>
+                                    Дата
+                                </span>
+                                <strong>
+                                    {{ booking_date }}
+                                </strong>
+                            </div>
+
+                            <div class="booking-detail">
+                                <span>
+                                    Время
+                                </span>
+                                <strong>
+                                    {{ booking_time }}
+                                </strong>
+                            </div>
+
+                            <div class="booking-detail">
+                                <span>
+                                    Формат
+                                </span>
+                                <strong>
+                                    {{ specialist.format }}
+                                </strong>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+
+                <div class="section-heading">
+                    <h2 class="section-heading__title">
+                        Контактные данные
+                    </h2>
+                    <p class="section-heading__description">
+                        Они понадобятся для подтверждения записи.
+                    </p>
+                </div>
+
+
+                <form id="booking-form" class="booking-form">
+                    <div class="form-group">
+                        <label class="form-label" for="booking-name">
+                            Имя
+                        </label>
+                        <input
+                            id="booking-name"
+                            name="name"
+                            type="text"
+                            class="form-control"
+                            placeholder="Ваше имя"
+                            autocomplete="name"
+                            required
+                        >
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="form-label" for="booking-email">
+                            Email
+                        </label>
+                        <input
+                            id="booking-email"
+                            name="email"
+                            type="email"
+                            class="form-control"
+                            placeholder="example@mail.ru"
+                            autocomplete="email"
+                            required
+                        >
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="form-label" for="booking-phone">
+                            Телефон
+                        </label>
+                        <input
+                            id="booking-phone"
+                            name="phone"
+                            type="tel"
+                            class="form-control"
+                            pattern="\+7\s?\(?\d{3}\)?\s?\d{3}[-\s]?\d{2}[-\s]?\d{2}"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="booking-comment">
+                            Комментарий специалисту
+                            <span class="form-label__optional">
+                                необязательно
+                            </span>
+                        </label>
+                        <textarea
+                            id="booking-comment"
+                            name="comment"
+                            class="form-control"
+                            rows="4"
+                            placeholder="Например, расскажите о цели занятия"
+                        ></textarea>
+                    </div>
+
+                </form>
+            </main>
+
+            <aside class="booking-sidebar">
+                <div class="card booking-summary-card">
+                    <div class="section-heading">
+                        <h2 class="section-heading__title">
+                            Ваша запись
+                        </h2>
+                    </div>
+
+                    <div class="booking-summary">
+                        <div class="booking-summary__item">
+                            <span>
+                                Специалист
+                            </span>
+                            <strong>
+                                {{ specialist.name }}
+                            </strong>
+                        </div>
+
+                        <div class="booking-summary__item">
+                            <span>
+                                Услуга
+                            </span>
+                            <strong>
+                                {{ service.name }}
+                            </strong>
+                        </div>
+
+                        <div class="booking-summary__item">
+                            <span>
+                                Дата и время
+                            </span>
+
+                            <strong>
+                                {{ booking_date }} · {{ booking_time }}
+                            </strong>
+                        </div>
+
+                        <div class="booking-summary__item">
+                            <span>
+                                Продолжительность
+                            </span>
+                            <strong>
+                                {{ service.duration }} минут
+                            </strong>
+                        </div>
+
+
+                        <div class="booking-summary__total">
+                            <span>
+                                К оплате
+                            </span>
+                            <strong>
+                                {% if service.price == 0 %}
+                                    Бесплатно
+                                {% else %}
+                                    {{ service.price }} ₽
+                                {% endif %}
+                            </strong>
+                        </div>
+                    </div>
+
+                    <!-- добавить функционал кнопки -->
+                    <button
+                        type="submit"
+                        form="booking-form"
+                        class="button button--primary button--full"
+                    >
+                        Перейти к оплате
+                    </button>
+
+                    <p class="booking-summary-card__note">
+                        Нажимая кнопку, вы переходите к оформлению оплаты.
+                    </p>
+
+                </div>
+            </aside>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

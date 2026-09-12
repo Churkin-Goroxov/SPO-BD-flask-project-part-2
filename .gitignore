@@ -58,3 +58,6 @@ $RECYCLE.BIN/
 .pyright/
 tox/
 .nox/
+
+
+*.txt

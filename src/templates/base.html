@@ -4,42 +4,118 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>{% block title %}LZORA{% endblock %}</title>
+    <title>
+        {% block title %}
+        LZORA
+        {% endblock %}
+    </title>
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
 </head>
 
 <body>
 
 <header>
-    <div class="container site-header__inner">
+    <div class="container">
+        <div class="site-header__inner">
 
-        <a href="{{ url_for('index') }}" class="logo"> 
-            LZORA 
-        </a>
+            <a href="{{ url_for('index') }}" class="logo">
+                LZORA
+            </a>
 
-        <nav class="site-nav"> 
-            <a href="{{ url_for('search') }}" >Найти специалиста</a>
-            <a href="{{ url_for('categories') }}" >Категории</a>
-            <a href="#" >Как это работает</a>
-            <a href="#" >Для специалистов</a>
-        </nav>
+            <nav class="site-nav">
+                <a href="{{ url_for('search') }}">
+                    Найти специалиста
+                </a>
 
-        <div class="site-header__actions">
-            <a href="#" class="button button--primary">Регистрация</a>
-            <a href="#" class="button button--secondary">Войти</a>
+                <a href="{{ url_for('how_it_works') }}">
+                    Как это работает
+                </a>
+            </nav>
+
+            <div class="site-header__actions">
+
+                <a
+                    href="{{ url_for('login') }}"
+                    class="button button--secondary"
+                >
+                    Войти
+                </a>
+
+                <a
+                    href="{{ url_for('register') }}"
+                    class="button button--primary"
+                >
+                    Регистрация
+                </a>
+
+            </div>
+
         </div>
     </div>
 </header>
 
+
 <main>
-    {% block content %}
-    {% endblock %}
+    {% block content %}{% endblock %}
 </main>
+
 
 <footer class="site-footer">
     <div class="container">
-        <p> LZORA 2026 </p>
+
+        <div class="site-footer__inner">
+
+            <div class="site-footer__brand">
+                <a href="{{ url_for('index') }}" class="logo">
+                    LZORA
+                </a>
+
+                <p>
+                    Сервис поиска и безопасной записи
+                    к проверенным специалистам.
+                </p>
+            </div>
+
+            <div class="site-footer__links">
+
+                <div>
+                    <h3>Сервис</h3>
+
+                    <a href="{{ url_for('search') }}">
+                        Найти специалиста
+                    </a>
+
+                    <a href="{{ url_for('how_it_works') }}">
+                        Как это работает
+                    </a>
+                </div>
+
+                <div>
+                    <h3>Аккаунт</h3>
+
+                    <a href="{{ url_for('login') }}">
+                        Войти
+                    </a>
+
+                    <a href="{{ url_for('register') }}">
+                        Регистрация
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="site-footer__bottom">
+            <span>
+                © 2026 LZORA
+            </span>
+        </div>
+
     </div>
 </footer>
 

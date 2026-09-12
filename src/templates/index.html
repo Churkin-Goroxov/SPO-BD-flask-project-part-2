@@ -1,11 +1,405 @@
 {% extends "base.html" %}
 
 {% block title %}
-Главная
-{% endblock %} 
- 
+LZORA — Найдите специалиста
+{% endblock %}
+
 {% block content %}
-<h2>Главная страница</h2>
-<p>Это главная страница учебного Flask-приложения.</p>
-<p>Проект демонстрирует создание маршрутов, использование HTML-шаблонов и организацию простого многостраничного веб-сайта.</p>
+
+<section class="hero">
+    <div class="container">
+
+        <div class="hero-content">
+
+            <h1 class="hero-title">
+                Специалисты,<br>
+                которым можно доверять
+            </h1>
+
+            <p class="hero-description">
+                Найдите подходящего специалиста, сравните предложения
+                и запишитесь в удобное время.
+            </p>
+
+            <form class="search-form" action="{{ url_for('search') }}" method="get">
+
+                <div class="search-form__main">
+                    <label for="search-query">
+                        Кого вы ищете?
+                    </label>
+
+                    <input
+                        id="search-query"
+                        name="q"
+                        type="search"
+                        class="form-control"
+                        placeholder="Например, репетитор по математике"
+                    >
+                </div>
+
+                <div class="search-form__filters">
+
+                    <div class="form-group">
+                        <label class="form-label" for="search-category">
+                            Категория
+                        </label>
+
+                        <select
+                            id="search-category"
+                            name="category"
+                            class="form-control"
+                        >
+                            <option value="">Все категории</option>
+                            <option value="education">Образование</option>
+                            <option value="consultation">Консультации</option>
+                            <option value="beauty">Красота</option>
+                            <option value="sport">Спорт и здоровье</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="search-format">
+                            Формат
+                        </label>
+
+                        <select
+                            id="search-format"
+                            name="format"
+                            class="form-control"
+                        >
+                            <option value="">Онлайн + офлайн</option>
+                            <option value="online">Онлайн</option>
+                            <option value="offline">Офлайн</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="search-date">
+                            Когда
+                        </label>
+
+                        <select
+                            id="search-date"
+                            name="date"
+                            class="form-control"
+                        >
+                            <option value="">Любая дата</option>
+                            <option value="today">Сегодня</option>
+                            <option value="tomorrow">Завтра</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="button button--primary">
+                        Найти специалиста
+                    </button>
+
+                </div>
+
+            </form>
+
+            <div class="hero-benefits">
+                <span>✓ Проверенные специалисты</span>
+                <span>✓ Прозрачные цены</span>
+                <span>✓ Удобная запись</span>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+
+<section class="page-section">
+    <div class="container">
+
+        <div class="section-heading">
+            <h2 class="section-heading__title">
+                Найдите специалиста для любой задачи
+            </h2>
+        </div>
+
+        <div class="category-list">
+
+            <a
+                href="{{ url_for('search', category='education') }}"
+                class="card category-card"
+            >
+                <span class="category-card__icon">∑</span>
+                <h3>Образование</h3>
+                <p>Репетиторы и преподаватели</p>
+            </a>
+
+            <a
+                href="{{ url_for('search', category='consultation') }}"
+                class="card category-card"
+            >
+                <span class="category-card__icon">A</span>
+                <h3>Консультации</h3>
+                <p>Эксперты в разных областях</p>
+            </a>
+
+            <a
+                href="{{ url_for('search', category='beauty') }}"
+                class="card category-card"
+            >
+                <span class="category-card__icon">✦</span>
+                <h3>Красота</h3>
+                <p>Мастера рядом</p>
+            </a>
+
+            <a
+                href="{{ url_for('search', category='sport') }}"
+                class="card category-card"
+            >
+                <span class="category-card__icon">○</span>
+                <h3>Спорт и здоровье</h3>
+                <p>Тренеры и инструкторы</p>
+            </a>
+
+        </div>
+
+    </div>
+</section>
+
+
+<section class="page-section">
+    <div class="container">
+
+        <div class="section-heading">
+            <h2 class="section-heading__title">
+                Популярные специалисты
+            </h2>
+
+            <p class="section-heading__description">
+                Специалисты с хорошими отзывами и ближайшими свободными окнами.
+            </p>
+        </div>
+
+        <div class="specialist-list">
+
+            <article class="card specialist-card">
+
+                <div class="specialist-card__photo">
+                    <img
+                        src="{{ url_for('static', filename='images/specialist-anna.jpg') }}"
+                        alt="Анна Петрова"
+                    >
+                </div>
+
+                <div class="specialist-card__content">
+
+                    <span class="verification-badge">
+                        ✓ Проверен
+                    </span>
+
+                    <h3 class="specialist-card__name">
+                        Анна Петрова
+                    </h3>
+
+                    <p class="specialist-card__profession">
+                        Репетитор по математике
+                    </p>
+
+                    <p class="specialist-card__rating">
+                        ★ 4.9 · 128 отзывов
+                    </p>
+
+                    <p class="specialist-card__price">
+                        от 1 500 ₽ / 60 минут
+                    </p>
+
+                    <p class="specialist-card__availability">
+                        Сегодня 18:30
+                    </p>
+
+                    <a
+                        href="{{ url_for('specialist', specialist_id=1) }}"
+                        class="button button--secondary"
+                    >
+                        Подробнее
+                    </a>
+
+                </div>
+
+            </article>
+
+
+            <article class="card specialist-card">
+
+                <div class="specialist-card__photo">
+                    <div class="specialist-card__placeholder">
+                        МИ
+                    </div>
+                </div>
+
+                <div class="specialist-card__content">
+
+                    <span class="verification-badge">
+                        ✓ Проверен
+                    </span>
+
+                    <h3 class="specialist-card__name">
+                        Михаил Иванов
+                    </h3>
+
+                    <p class="specialist-card__profession">
+                        Преподаватель английского языка
+                    </p>
+
+                    <p class="specialist-card__rating">
+                        ★ 5.0 · 86 отзывов
+                    </p>
+
+                    <p class="specialist-card__price">
+                        от 1 200 ₽ / 60 минут
+                    </p>
+
+                    <p class="specialist-card__availability">
+                        Завтра 15:00
+                    </p>
+
+                    <a
+                        href="{{ url_for('specialist', specialist_id=1) }}"
+                        class="button button--secondary"
+                    >
+                        Подробнее
+                    </a>
+
+                </div>
+
+            </article>
+
+        </div>
+
+    </div>
+</section>
+
+
+<section class="page-section">
+    <div class="container">
+
+        <div class="section-heading">
+            <h2 class="section-heading__title">
+                Почему LZORA?
+            </h2>
+        </div>
+
+        <div class="trust-list">
+
+            <article class="card trust-card">
+                <span class="trust-card__icon">✓</span>
+                <h3>Проверенные специалисты</h3>
+                <p>
+                    Личность и данные специалиста могут быть подтверждены.
+                </p>
+            </article>
+
+            <article class="card trust-card">
+                <span class="trust-card__icon">◷</span>
+                <h3>Реальное расписание</h3>
+                <p>
+                    Вы видите свободные слоты и выбираете удобное время.
+                </p>
+            </article>
+
+            <article class="card trust-card">
+                <span class="trust-card__icon">₽</span>
+                <h3>Прозрачная стоимость</h3>
+                <p>
+                    Цена известна до записи.
+                </p>
+            </article>
+
+            <article class="card trust-card">
+                <span class="trust-card__icon">🔒</span>
+                <h3>Безопасная запись</h3>
+                <p>
+                    Все ваши записи находятся в одном месте.
+                </p>
+            </article>
+
+        </div>
+
+    </div>
+</section>
+
+
+<section class="page-section">
+    <div class="container">
+
+        <div class="section-heading">
+            <h2 class="section-heading__title">
+                Как это работает
+            </h2>
+        </div>
+
+        <div class="how-it-works-steps">
+
+            <article class="card">
+                <span>01</span>
+                <h3>Найдите специалиста</h3>
+                <p>Поиск, фильтры и категории.</p>
+            </article>
+
+            <article class="card">
+                <span>02</span>
+                <h3>Проверьте профиль</h3>
+                <p>Отзывы, опыт и подтверждения.</p>
+            </article>
+
+            <article class="card">
+                <span>03</span>
+                <h3>Выберите время</h3>
+                <p>Свободные окна в расписании.</p>
+            </article>
+
+            <article class="card">
+                <span>04</span>
+                <h3>Запишитесь и оплатите</h3>
+                <p>Подтвердите запись и оплатите услугу.</p>
+            </article>
+
+        </div>
+
+        <a
+            href="{{ url_for('search') }}"
+            class="button button--primary"
+        >
+            Начать поиск
+        </a>
+
+    </div>
+</section>
+
+
+<section class="page-section">
+    <div class="container">
+
+        <div class="specialist-promo">
+
+            <div>
+                <h2>Вы специалист?</h2>
+
+                <p>
+                    Находите новых клиентов и управляйте
+                    записями в одном месте.
+                </p>
+
+                <ul>
+                    <li>✓ Профиль специалиста</li>
+                    <li>✓ Расписание</li>
+                    <li>✓ Записи</li>
+                    <li>✓ Отзывы</li>
+                </ul>
+            </div>
+
+            <a href="{{ url_for('register') }}" class="button button--secondary">
+                Стать специалистом
+            </a>
+
+        </div>
+
+    </div>
+</section>
+
 {% endblock %}

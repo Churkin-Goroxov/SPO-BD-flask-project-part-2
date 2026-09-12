@@ -1,14 +1,291 @@
 {% extends "base.html" %}
 
-{% block title%}
-Поиск - LZORA
-{% endblock %}
+{% block title %}Поиск специалистов — LZORA{% endblock %}
 
 {% block content %}
 
-<div class="container">
-    <h1>Поиск специалистов</h1>
-    <p>Здесь будет форма поиска специалистов)</p>
-</div>
+<section class="page-section">
+    <div class="container">
+
+        <div class="section-heading">
+            <h1 class="section-heading__title">
+                Найти специалиста
+            </h1>
+
+            <p class="section-heading__description">
+                Выберите подходящего специалиста и удобный формат работы.
+            </p>
+        </div>
+
+        <div class="search-layout">
+
+            <aside class="card search-filters">
+
+                <h2>Фильтры</h2>
+
+                <form method="get" action="{{ url_for('search') }}">
+
+                    <div class="form-group">
+                        <label class="form-label" for="search-query">
+                            Поиск
+                        </label>
+
+                        <input
+                            id="search-query"
+                            name="q"
+                            type="search"
+                            class="form-control"
+                            placeholder="Имя или специализация"
+                            value="{{ request.args.get('q', '') }}"
+                        >
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="form-label" for="search-category">
+                            Категория
+                        </label>
+
+                        <select
+                            id="search-category"
+                            name="category"
+                            class="form-control"
+                        >
+                            <option value="">Все категории</option>
+                            <option value="education">Образование</option>
+                            <option value="consultation">Консультации</option>
+                            <option value="beauty">Красота</option>
+                            <option value="sport">Спорт и здоровье</option>
+                        </select>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="form-label" for="search-format">
+                            Формат
+                        </label>
+
+                        <select
+                            id="search-format"
+                            name="format"
+                            class="form-control"
+                        >
+                            <option value="">Любой формат</option>
+                            <option value="online">Онлайн</option>
+                            <option value="offline">Офлайн</option>
+                        </select>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="form-label" for="search-price">
+                            Стоимость
+                        </label>
+
+                        <select
+                            id="search-price"
+                            name="price"
+                            class="form-control"
+                        >
+                            <option value="">Любая стоимость</option>
+                            <option value="1000">До 1 000 ₽</option>
+                            <option value="2000">До 2 000 ₽</option>
+                            <option value="3000">До 3 000 ₽</option>
+                        </select>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="form-label" for="search-rating">
+                            Рейтинг
+                        </label>
+
+                        <select
+                            id="search-rating"
+                            name="rating"
+                            class="form-control"
+                        >
+                            <option value="">Любой рейтинг</option>
+                            <option value="4">От 4.0</option>
+                            <option value="4.5">От 4.5</option>
+                            <option value="4.8">От 4.8</option>
+                        </select>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="form-label" for="search-date">
+                            Дата
+                        </label>
+
+                        <input
+                            id="search-date"
+                            name="date"
+                            type="date"
+                            class="form-control"
+                        >
+                    </div>
+
+
+                    <label>
+                        <input type="checkbox" name="verified">
+                        Только проверенные
+                    </label>
+
+
+                    <button
+                        type="submit"
+                        class="button button--primary button--full"
+                    >
+                        Применить фильтры
+                    </button>
+
+                </form>
+
+            </aside>
+
+
+            <main class="search-results">
+
+                <div class="search-results__header">
+
+                    <div>
+                        <h2>Специалисты</h2>
+                        <p>Найдено специалистов: 12</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="search-sort">
+                            Сортировка
+                        </label>
+
+                        <select id="search-sort" name="sort" class="form-control">
+                            <option value="rating">
+                                По рейтингу
+                            </option>
+                            <option value="price">
+                                По стоимости
+                            </option>
+                            <option value="experience">
+                                По опыту
+                            </option>
+                        </select>
+                    </div>
+
+                </div>
+
+
+                <div class="specialist-list">
+
+                    <article class="card specialist-card">
+
+                        <div class="specialist-card__photo">
+                            <img
+                                src="{{ url_for('static', filename='images/specialist-anna.jpg') }}"
+                                alt="Анна Петрова"
+                            >
+                        </div>
+
+                        <div class="specialist-card__content">
+
+                            <span class="verification-badge">
+                                ✓ Проверен
+                            </span>
+
+                            <h3 class="specialist-card__name">
+                                Анна Петрова
+                            </h3>
+
+                            <p class="specialist-card__profession">
+                                Репетитор по математике
+                            </p>
+
+                            <div class="specialist-card__info">
+                                <span>★ 4.9 · 128 отзывов</span>
+                                <span>7 лет опыта · Онлайн</span>
+                            </div>
+
+                            <div class="specialist-card__bottom">
+
+                                <strong class="specialist-card__price">
+                                    1 500 ₽ / 60 мин
+                                </strong>
+
+                                <span class="specialist-card__availability">
+                                    Сегодня 18:30
+                                </span>
+
+                            </div>
+
+                            <a
+                                href="{{ url_for('specialist', specialist_id=1) }}"
+                                class="button button--secondary"
+                            >
+                                Посмотреть профиль
+                            </a>
+
+                        </div>
+
+                    </article>
+
+
+                    <article class="card specialist-card">
+
+                        <div class="specialist-card__photo">
+                            <div class="specialist-card__placeholder">
+                                МИ
+                            </div>
+                        </div>
+
+                        <div class="specialist-card__content">
+
+                            <span class="verification-badge">
+                                ✓ Проверен
+                            </span>
+
+                            <h3 class="specialist-card__name">
+                                Михаил Иванов
+                            </h3>
+
+                            <p class="specialist-card__profession">
+                                Преподаватель английского языка
+                            </p>
+
+                            <div class="specialist-card__info">
+                                <span>★ 5.0 · 86 отзывов</span>
+                                <span>5 лет опыта · Онлайн</span>
+                            </div>
+
+                            <div class="specialist-card__bottom">
+
+                                <strong class="specialist-card__price">
+                                    1 200 ₽ / 60 мин
+                                </strong>
+
+                                <span class="specialist-card__availability">
+                                    Завтра 15:00
+                                </span>
+
+                            </div>
+
+                            <a
+                                href="{{ url_for('specialist', specialist_id=1) }}"
+                                class="button button--secondary"
+                            >
+                                Посмотреть профиль
+                            </a>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+            </main>
+
+        </div>
+
+    </div>
+</section>
 
 {% endblock %}

@@ -1,0 +1,278 @@
+{% extends "base.html" %}
+
+{% block title %}Анна Петрова — LZORA{% endblock %}
+
+{% block content %}
+
+<section class="page-section">
+    <div class="container">
+
+        <a href="{{ url_for('search') }}" class="back-link">
+            ← Назад к поиску
+        </a>
+
+        <!-- Профиль специалиста -->
+        <div class="card specialist-hero">
+            <div class="specialist-hero__photo">
+                <img
+                    src="{{ url_for('static', filename='images/specialist-anna.jpg') }}"
+                    alt="{{ specialist.name }}"
+                >
+            </div>
+
+            <div class="specialist-hero__content">
+                <div class="specialist-hero__top">
+                    <div>
+                        <h1 class="specialist-hero__name">
+                            {{ specialist.name }}
+                        </h1>
+                        <p class="specialist-hero__profession">
+                            {{ specialist.title }}
+                        </p>
+                    </div>
+                </div>
+
+                <div class="verification-list">
+                    {% for verification in specialist.verifications %}
+                        <button class="verification-badge"
+                        >
+                            ✓ {{ verification }}
+                        </button>
+                    {% endfor %}
+                </div>
+
+                <div class="specialist-meta">
+                    <span>
+                        {{ specialist.rating }}
+                    </span>
+                    <span>
+                        {{ specialist.review_count }} отзывов
+                    </span>
+                    <span>
+                        {{ specialist.experience }} лет опыта
+                    </span>
+                </div>
+
+                <div class="specialist-meta specialist-meta--secondary">
+                    <span>
+                        {{ specialist.format }}
+                    </span>
+                    <span>
+                        {{ specialist.location }}
+                    </span>
+                </div>
+
+                <div class="specialist-price">
+                    от {{ specialist.price_from }} ₽ / час
+                </div>
+            </div>
+        </div>
+
+        <div class="specialist-layout">
+            <main class="specialist-content">
+
+                <section>
+                    <div class="section-heading">
+                        <h2 class="section-heading__title">
+                            О специалисте
+                        </h2>
+                        <p class="section-heading__description">
+                            {{ specialist.description }}
+                        </p>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="section-heading">
+                        <h2 class="section-heading__title">
+                            Опыт и достижения
+                        </h2>
+                    </div>
+
+                    <div class="specialist-stats">
+                        {% for stat in specialist.stats %}
+                            <div class="card specialist-stat">
+                                <strong class="specialist-stat__value">
+                                    {{ stat.value }}
+                                </strong>
+                                <span class="specialist-stat__label">
+                                    {{ stat.label }}
+                                </span>
+                            </div>
+                        {% endfor %}
+
+                    </div>
+                </section>
+
+                <section>
+                    <div class="section-heading">
+                        <h2 class="section-heading__title">
+                            Услуги и цены
+                        </h2>
+                        <p class="section-heading__description">
+                            Выберите услугу, чтобы продолжить запись.
+                        </p>
+                    </div>
+
+                    <div class="service-list">
+                        {% for service in services %}
+                            <button
+                                type="button"
+                                class="card card--service service-option"
+                            >
+                                <span class="service-option__content">
+                                    <strong class="service-option__name">
+                                        {{ service.name }}
+                                    </strong>
+                                    <span class="service-option__duration">
+                                        {{ service.duration }} минут
+                                    </span>
+                                </span>
+
+                                <span class="service-option__price">
+                                    {% if service.price == 0 %}
+                                        Бесплатно
+                                    {% else %}
+                                        {{ service.price }} ₽
+                                    {% endif %}
+                                </span>
+                            </button>
+                        {% endfor %}
+
+                    </div>
+                </section>
+
+                <section>
+                    <div class="section-heading">
+                        <h2 class="section-heading__title">
+                            Расписание
+                        </h2>
+                        <p class="section-heading__description">
+                            Ближайшее свободное время специалиста.
+                        </p>
+                    </div>
+
+                    <div class="schedule-preview">
+                        {% for day in schedule %}
+                            <div class="schedule-day">
+                                <div class="schedule-day__header">
+                                    <span class="schedule-day__weekday">
+                                        {{ day.weekday }}
+                                    </span>
+                                    <span class="schedule-day__date">
+                                        {{ day.date }}
+                                    </span>
+                                </div>
+
+                                <div class="schedule-day__slots">
+                                    {% for slot in day.slots %}
+                                        <button
+                                            type="button"
+                                            class="button button--outline button--small schedule-slot
+                                            {% if not slot.available %}schedule-slot--disabled{% endif %}"
+                                            {% if not slot.available %}disabled{% endif %}
+                                        >
+                                            {{ slot.time }}
+                                        </button>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        {% endfor %}
+
+                    </div>
+
+                    <a
+                        href="{{ url_for('schedule', specialist_id=specialist.id) }}"
+                        class="button button--secondary"
+                    >
+                        Смотреть всё расписание
+                    </a>
+                </section>
+
+            </main>
+
+            <aside class="specialist-sidebar">
+                <div class="card booking-card">
+                    <div class="section-heading">
+                        <h2 class="section-heading__title">
+                            Запись
+                        </h2>
+                        <p class="section-heading__description">
+                            Выберите услугу и удобное время.
+                        </p>
+                    </div>
+
+
+                    <div class="booking-summary">
+                        <div class="booking-summary__specialist">
+                            <strong>{{ specialist.name }}</strong>
+                            <span>
+                                {{ specialist.title }}
+                            </span>
+                        </div>
+
+                        <div class="booking-summary__item">
+                            <span>
+                                Услуга
+                            </span>
+                            <strong data-booking-service>
+                                Выберите услугу
+                            </strong>
+                        </div>
+
+
+                        <div class="booking-summary__item">
+                            <span>
+                                Продолжительность
+                            </span>
+                            <strong data-booking-duration>
+                                —
+                            </strong>
+                        </div>
+
+
+                        <div class="booking-summary__item">
+                            <span>
+                                Дата
+                            </span>
+                            <strong data-booking-date>
+                                Выберите время
+                            </strong>
+                        </div>
+
+
+                        <div class="booking-summary__item">
+                            <span>
+                                Время
+                            </span>
+                            <strong data-booking-time>
+                                —
+                            </strong>
+                        </div>
+
+
+                        <div class="booking-summary__total">
+                            <span>Стоимость</span>
+
+                            <strong data-booking-price>
+                                —
+                            </strong>
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        class="button button--primary button--full"
+                    >
+                        Записаться
+                    </button>
+
+                </div>
+            </aside>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
