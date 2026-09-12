@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block title %}Запись подтверждена — LZORA{% endblock %}
+
+{% block content %}
+
+<section class="page-section success-page">
+
+    <div class="container">
+
+        <div class="success-card card">
+
+            <div class="success-card__icon">
+                ✓
+            </div>
+
+            <div class="section-heading success-card__heading">
+
+                <h1 class="section-heading__title">
+                    Запись подтверждена
+                </h1>
+
+                <p class="section-heading__description">
+                    Вы успешно записались к специалисту.
+                </p>
+
+            </div>
+
+            <div class="success-details">
+
+                <div class="success-detail">
+                    <span>Специалист</span>
+                    <strong>Анна Петрова</strong>
+                </div>
+
+                <div class="success-detail">
+                    <span>Услуга</span>
+                    <strong>{{ service.name }}</strong>
+                </div>
+
+                <div class="success-detail">
+                    <span>Дата</span>
+                    <strong>{{ booking_date }}</strong>
+                </div>
+
+                <div class="success-detail">
+                    <span>Время</span>
+                    <strong>{{ booking_time }}</strong>
+                </div>
+
+            </div>
+
+            <div class="success-actions">
+
+                <a
+                    href="{{ url_for('profile') }}"
+                    class="button button--primary"
+                >
+                    Перейти в мои записи
+                </a>
+
+                <a
+                    href="{{ url_for('index') }}"
+                    class="button button--secondary"
+                >
+                    На главную
+                </a>
+
+            </div>
+
+            <p class="success-note">
+                Детали записи будут доступны в вашем профиле.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}
