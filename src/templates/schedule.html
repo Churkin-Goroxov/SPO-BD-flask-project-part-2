@@ -1,0 +1,265 @@
+{% extends "base.html" %}
+
+{% block title %}Расписание — {{ specialist.name }} — LZORA{% endblock %}
+
+{% block content %}
+
+<section class="page-section schedule-page">
+    <div class="container">
+
+        <a
+            href="{{ url_for('specialist', specialist_id=specialist.id) }}"
+            class="back-link"
+        >
+            ← Назад к профилю
+        </a>
+
+        <div class="section-heading schedule-page__heading">
+            <h1 class="section-heading__title">
+                Расписание {{ specialist.name }}
+            </h1>
+
+            <p class="section-heading__description">
+                {{ specialist.title }} · {{ specialist.format }} / {{ specialist.location }}
+            </p>
+        </div>
+
+
+        <div class="schedule-layout">
+
+            <!-- Расписание -->
+            <main class="card schedule-calendar">
+
+                <div class="schedule-calendar__top">
+                    <div class="section-heading section-heading--compact">
+                        <h2 class="section-heading__title">
+                            Расписание
+                        </h2>
+                    </div>
+
+                    <div class="schedule-navigation">
+                        <button
+                            type="button"
+                            class="button button--outline button--small"
+                            data-schedule-prev
+                            aria-label="Предыдущая неделя"
+                        >
+                            ←
+                        </button>
+
+                        <strong data-schedule-period>
+                            12–18 сентября
+                        </strong>
+
+                        <button
+                            type="button"
+                            class="button button--outline button--small"
+                            data-schedule-next
+                            aria-label="Следующая неделя"
+                        >
+                            →
+                        </button>
+                    </div>
+                </div>
+
+
+                <!-- Дни -->
+                <div class="schedule-dates" data-schedule-dates>
+
+                    {% for day in schedule %}
+                        <button
+                            type="button"
+                            class="schedule-date
+                            {% if loop.first %}is-selected{% endif %}"
+                            data-schedule-date="{{ day.date }}"
+                        >
+                            <span class="schedule-date__weekday">
+                                {{ day.weekday }}
+                            </span>
+
+                            <span class="schedule-date__number">
+                                {{ day.day }}
+                            </span>
+                        </button>
+                    {% endfor %}
+
+                </div>
+
+
+                <!-- Время -->
+                <div class="schedule-times">
+
+                    <div class="section-heading section-heading--compact">
+                        <h3 class="section-heading__title">
+                            Свободное время
+                        </h3>
+                    </div>
+
+                    <div
+                        class="schedule-time-grid"
+                        data-schedule-times
+                    >
+
+                        {% for slot in schedule[0].slots %}
+
+                            <button
+                                type="button"
+                                class="button button--outline schedule-time
+                                {% if not slot.available %}
+                                    schedule-time--disabled
+                                {% endif %}"
+                                {% if not slot.available %}disabled{% endif %}
+                                data-time="{{ slot.time }}"
+                                data-date="{{ schedule[0].date }}"
+                            >
+                                {{ slot.time }}
+                            </button>
+
+                        {% endfor %}
+
+                    </div>
+
+                    <p
+                        class="schedule-empty"
+                        data-schedule-empty
+                        hidden
+                    >
+                        На выбранную дату свободного времени нет.
+                    </p>
+
+                </div>
+
+            </main>
+
+
+            <!-- Блок записи -->
+            <aside class="schedule-sidebar">
+
+                <div class="card card--booking booking-card">
+
+                    <div class="section-heading section-heading--compact">
+                        <h2 class="section-heading__title">
+                            Ваша запись
+                        </h2>
+                    </div>
+
+
+                    <div class="booking-summary">
+
+                        <div class="booking-summary__specialist">
+                            <strong>
+                                {{ specialist.name }}
+                            </strong>
+
+                            <span>
+                                {{ specialist.title }}
+                            </span>
+                        </div>
+
+
+                        <!-- Выбор услуги -->
+                        <div class="booking-service">
+
+                            <span class="booking-field-label">
+                                Услуга
+                            </span>
+
+                            <div class="booking-service-list">
+
+                                {% for service in services %}
+                                    <button
+                                        type="button"
+                                        class="card card--service booking-service-option
+                                        {% if loop.first %}is-selected{% endif %}"
+                                        data-service-id="{{ service.id }}"
+                                        data-service-name="{{ service.name }}"
+                                        data-service-price="{{ service.price }}"
+                                        data-service-duration="{{ service.duration }}"
+                                    >
+                                        <span>
+                                            <strong>
+                                                {{ service.name }}
+                                            </strong>
+
+                                            <small>
+                                                {{ service.duration }} минут
+                                            </small>
+                                        </span>
+
+                                        <strong>
+                                            {% if service.price == 0 %}
+                                                Бесплатно
+                                            {% else %}
+                                                {{ service.price }} ₽
+                                            {% endif %}
+                                        </strong>
+                                    </button>
+                                {% endfor %}
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="booking-summary__item">
+                            <span>Дата</span>
+
+                            <strong data-booking-date>
+                                {{ schedule[0].date }}
+                            </strong>
+                        </div>
+
+
+                        <div class="booking-summary__item">
+                            <span>Время</span>
+
+                            <strong data-booking-time>
+                                Выберите время
+                            </strong>
+                        </div>
+
+
+                        <div class="booking-summary__item">
+                            <span>Продолжительность</span>
+
+                            <strong data-booking-duration>
+                                {{ services[0].duration }} минут
+                            </strong>
+                        </div>
+
+
+                        <div class="booking-summary__total">
+                            <span>Стоимость</span>
+
+                            <strong data-booking-price>
+                                {% if services[0].price == 0 %}
+                                    Бесплатно
+                                {% else %}
+                                    {{ services[0].price }} ₽
+                                {% endif %}
+                            </strong>
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        class="button button--primary button--full"
+                        data-schedule-submit
+                    >
+                        Продолжить
+                    </button>
+
+                </div>
+
+            </aside>
+
+        </div>
+
+    </div>
+</section>
+
+<div class="toast" data-toast aria-hidden="true"></div>
+
+{% endblock %}
