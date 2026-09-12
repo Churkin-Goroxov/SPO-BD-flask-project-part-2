@@ -1,0 +1,622 @@
+{% extends "base.html" %}
+
+{% block title %}Анна Петрова — Репетитор по математике | LZORA{% endblock %}
+
+{% block content %}
+
+<div class="specialist-page">
+
+    <!-- Назад -->
+    <a href="{{ url_for('search') }}" class="back-link">
+        ← Назад к поиску
+    </a>
+
+    <!-- Основная информация -->
+    <section class="specialist-hero">
+
+        <div class="specialist-main">
+
+            <div class="specialist-photo">
+                <img src="{{ url_for('static', filename='images/specialists/anna.jpg') }}"
+                     alt="Анна Петрова">
+            </div>
+
+            <div class="specialist-info">
+
+                <div class="specialist-name-row">
+                    <h1>Анна Петрова</h1>
+
+                    <button class="favorite-btn"
+                            id="favoriteBtn"
+                            type="button"
+                            aria-label="Добавить в избранное">
+                        ♡
+                    </button>
+                </div>
+
+                <p class="specialist-profession">
+                    Репетитор по математике
+                </p>
+
+                <div class="verification-row">
+
+                    <button class="verification-badge"
+                            type="button"
+                            onclick="openVerification()">
+                        <span>✓</span>
+                        Личность подтверждена
+                    </button>
+
+                    <button class="verification-badge"
+                            type="button"
+                            onclick="openVerification()">
+                        <span>✓</span>
+                        Образование подтверждено
+                    </button>
+
+                </div>
+
+                <div class="specialist-meta">
+
+                    <span class="rating">
+                        <strong>★ 4.9</strong>
+                        <span>128 отзывов</span>
+                    </span>
+
+                    <span>8 лет опыта</span>
+
+                    <span>Онлайн · Москва</span>
+
+                </div>
+
+                <p class="specialist-price">
+                    от <strong>1 500 ₽</strong> / час
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- Кнопка записи -->
+        <div class="hero-action">
+            <button class="primary-btn"
+                    onclick="scrollToSchedule()">
+                Записаться
+            </button>
+
+            <p>Ближайшее время — сегодня, 18:30</p>
+        </div>
+
+    </section>
+
+
+    <!-- Контент -->
+    <div class="specialist-layout">
+
+        <main class="specialist-content">
+
+            <!-- О специалисте -->
+            <section class="profile-section">
+
+                <h2>О специалисте</h2>
+
+                <p class="description">
+                    Помогаю разобраться в математике без зубрёжки и
+                    лишнего стресса. Работаю со школьниками 5–11 классов,
+                    готовлю к ОГЭ и ЕГЭ, а также помогаю закрыть пробелы
+                    в школьной программе.
+                </p>
+
+                <p class="description">
+                    На занятиях разбираем реальные задачи, постепенно
+                    выстраиваем систему знаний и работаем именно над тем,
+                    что вызывает сложности.
+                </p>
+
+            </section>
+
+
+            <!-- Достижения -->
+            <section class="profile-section">
+
+                <h2>Опыт и достижения</h2>
+
+                <div class="achievement-grid">
+
+                    <div class="achievement-card">
+                        <strong>8 лет</strong>
+                        <span>опыта преподавания</span>
+                    </div>
+
+                    <div class="achievement-card">
+                        <strong>95%</strong>
+                        <span>учеников достигают цели</span>
+                    </div>
+
+                    <div class="achievement-card">
+                        <strong>120+</strong>
+                        <span>занятий проведено</span>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- Услуги -->
+            <section class="profile-section">
+
+                <div class="section-heading">
+                    <div>
+                        <h2>Услуги и цены</h2>
+                        <p>Выберите подходящий формат занятия</p>
+                    </div>
+                </div>
+
+                <div class="services-list">
+
+                    <button class="service-card active"
+                            data-service="Индивидуальное занятие"
+                            data-price="1500"
+                            onclick="selectService(this)">
+
+                        <div>
+                            <strong>Индивидуальное занятие</strong>
+                            <span>60 минут</span>
+                        </div>
+
+                        <strong class="service-price">
+                            1 500 ₽
+                        </strong>
+
+                    </button>
+
+
+                    <button class="service-card"
+                            data-service="Подготовка к ОГЭ"
+                            data-price="1600"
+                            onclick="selectService(this)">
+
+                        <div>
+                            <strong>Подготовка к ОГЭ</strong>
+                            <span>60 минут</span>
+                        </div>
+
+                        <strong class="service-price">
+                            1 600 ₽
+                        </strong>
+
+                    </button>
+
+
+                    <button class="service-card"
+                            data-service="Подготовка к ЕГЭ"
+                            data-price="1800"
+                            onclick="selectService(this)">
+
+                        <div>
+                            <strong>Подготовка к ЕГЭ</strong>
+                            <span>60 минут</span>
+                        </div>
+
+                        <strong class="service-price">
+                            1 800 ₽
+                        </strong>
+
+                    </button>
+
+
+                    <button class="service-card"
+                            data-service="Пробное занятие"
+                            data-price="0"
+                            onclick="selectService(this)">
+
+                        <div>
+                            <strong>Пробное занятие</strong>
+                            <span>30 минут</span>
+                        </div>
+
+                        <strong class="service-price">
+                            Бесплатно
+                        </strong>
+
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- Расписание -->
+            <section class="profile-section" id="schedule">
+
+                <div class="section-heading">
+                    <div>
+                        <h2>Расписание</h2>
+                        <p>Выберите удобную дату и время</p>
+                    </div>
+                </div>
+
+
+                <!-- Даты -->
+                <div class="date-selector">
+
+                    <button class="date-card active"
+                            onclick="selectDate(this)">
+                        <span>Сегодня</span>
+                        <strong>12</strong>
+                        <small>сен</small>
+                    </button>
+
+                    <button class="date-card"
+                            onclick="selectDate(this)">
+                        <span>Завтра</span>
+                        <strong>13</strong>
+                        <small>сен</small>
+                    </button>
+
+                    <button class="date-card"
+                            onclick="selectDate(this)">
+                        <span>Пн</span>
+                        <strong>14</strong>
+                        <small>сен</small>
+                    </button>
+
+                    <button class="date-card"
+                            onclick="selectDate(this)">
+                        <span>Вт</span>
+                        <strong>15</strong>
+                        <small>сен</small>
+                    </button>
+
+                    <button class="date-card"
+                            onclick="selectDate(this)">
+                        <span>Ср</span>
+                        <strong>16</strong>
+                        <small>сен</small>
+                    </button>
+
+                </div>
+
+
+                <!-- Время -->
+                <div class="time-grid">
+
+                    <button class="time-slot"
+                            onclick="selectTime(this)">
+                        10:00
+                    </button>
+
+                    <button class="time-slot"
+                            onclick="selectTime(this)">
+                        11:30
+                    </button>
+
+                    <button class="time-slot unavailable"
+                            disabled>
+                        13:00
+                    </button>
+
+                    <button class="time-slot"
+                            onclick="selectTime(this)">
+                        14:30
+                    </button>
+
+                    <button class="time-slot"
+                            onclick="selectTime(this)">
+                        16:30
+                    </button>
+
+                    <button class="time-slot"
+                            onclick="selectTime(this)">
+                        18:30
+                    </button>
+
+                    <button class="time-slot"
+                            onclick="selectTime(this)">
+                        20:00
+                    </button>
+
+                </div>
+
+
+                <button class="primary-btn schedule-btn"
+                        id="bookingBtn"
+                        onclick="goToBooking()">
+                    Выбрать время
+                </button>
+
+            </section>
+
+        </main>
+
+
+        <!-- Правая карточка -->
+        <aside class="booking-card">
+
+            <span class="booking-label">
+                Ближайшая запись
+            </span>
+
+            <h3 id="bookingService">
+                Индивидуальное занятие
+            </h3>
+
+            <div class="booking-duration">
+                60 минут
+            </div>
+
+            <div class="booking-price"
+                 id="bookingPrice">
+                1 500 ₽
+            </div>
+
+            <div class="booking-next">
+
+                <span>Ближайшее время</span>
+
+                <strong id="bookingTime">
+                    Сегодня · 18:30
+                </strong>
+
+            </div>
+
+            <button class="primary-btn"
+                    onclick="scrollToSchedule()">
+                Выбрать время
+            </button>
+
+            <div class="secure-note">
+                ✓ Безопасная запись через LZORA
+            </div>
+
+        </aside>
+
+    </div>
+
+</div>
+
+
+<!-- Модальное окно верификации -->
+<div class="modal-overlay"
+     id="verificationModal"
+     onclick="closeVerification(event)">
+
+    <div class="verification-modal"
+         onclick="event.stopPropagation()">
+
+        <button class="modal-close"
+                onclick="closeVerification()">
+            ×
+        </button>
+
+        <div class="modal-icon">
+            ✓
+        </div>
+
+        <h2>Профиль проверен</h2>
+
+        <p>
+            LZORA проверила данные специалиста.
+        </p>
+
+        <div class="verification-list">
+
+            <div>
+                <span>✓</span>
+                Телефон подтверждён
+            </div>
+
+            <div>
+                <span>✓</span>
+                Личность подтверждена
+            </div>
+
+            <div>
+                <span>✓</span>
+                Образование подтверждено
+            </div>
+
+        </div>
+
+        <span class="verified-by">
+            Проверено LZORA
+        </span>
+
+    </div>
+
+</div>
+
+
+<!-- Уведомление -->
+<div class="toast"
+     id="toast">
+    Войдите, чтобы добавлять специалистов в избранное
+</div>
+
+
+<script>
+
+let selectedService = {
+    name: "Индивидуальное занятие",
+    price: 1500
+};
+
+let selectedTime = null;
+
+
+/* Избранное */
+
+document
+    .getElementById("favoriteBtn")
+    .addEventListener("click", function () {
+
+        const isFavorite = this.classList.toggle("active");
+
+        this.textContent = isFavorite ? "♥" : "♡";
+
+        if (isFavorite) {
+            showToast("Специалист добавлен в избранное");
+        } else {
+            showToast("Специалист удалён из избранного");
+        }
+
+    });
+
+
+/* Выбор услуги */
+
+function selectService(card) {
+
+    document
+        .querySelectorAll(".service-card")
+        .forEach(item => item.classList.remove("active"));
+
+    card.classList.add("active");
+
+    selectedService.name =
+        card.dataset.service;
+
+    selectedService.price =
+        Number(card.dataset.price);
+
+    document.getElementById("bookingService").textContent =
+        selectedService.name;
+
+    document.getElementById("bookingPrice").textContent =
+        selectedService.price === 0
+            ? "Бесплатно"
+            : selectedService.price.toLocaleString("ru-RU") + " ₽";
+
+    showToast("Услуга выбрана");
+}
+
+
+/* Выбор даты */
+
+function selectDate(card) {
+
+    document
+        .querySelectorAll(".date-card")
+        .forEach(item => item.classList.remove("active"));
+
+    card.classList.add("active");
+
+    selectedTime = null;
+
+    document
+        .querySelectorAll(".time-slot")
+        .forEach(item => item.classList.remove("selected"));
+
+    document.getElementById("bookingTime").textContent =
+        card.querySelector("span").textContent + " · выберите время";
+}
+
+
+/* Выбор времени */
+
+function selectTime(button) {
+
+    document
+        .querySelectorAll(".time-slot")
+        .forEach(item => item.classList.remove("selected"));
+
+    button.classList.add("selected");
+
+    selectedTime = button.textContent.trim();
+
+    const activeDate =
+        document.querySelector(".date-card.active span").textContent;
+
+    document.getElementById("bookingTime").textContent =
+        activeDate + " · " + selectedTime;
+
+    document.getElementById("bookingBtn").textContent =
+        "Записаться на " + selectedTime;
+}
+
+
+/* Прокрутка к расписанию */
+
+function scrollToSchedule() {
+
+    document
+        .getElementById("schedule")
+        .scrollIntoView({
+            behavior: "smooth"
+        });
+
+}
+
+
+/* Переход к записи */
+
+function goToBooking() {
+
+    if (!selectedTime) {
+
+        showToast("Сначала выберите свободное время");
+
+        return;
+    }
+
+    window.location.href =
+        "{{ url_for('booking') }}" +
+        "?service=" +
+        encodeURIComponent(selectedService.name) +
+        "&price=" +
+        selectedService.price +
+        "&time=" +
+        encodeURIComponent(selectedTime);
+
+}
+
+
+/* Верификация */
+
+function openVerification() {
+
+    document
+        .getElementById("verificationModal")
+        .classList.add("show");
+
+}
+
+
+function closeVerification(event) {
+
+    if (
+        !event ||
+        event.target.id === "verificationModal"
+    ) {
+
+        document
+            .getElementById("verificationModal")
+            .classList.remove("show");
+
+    }
+
+}
+
+
+/* Toast */
+
+function showToast(message) {
+
+    const toast =
+        document.getElementById("toast");
+
+    toast.textContent = message;
+
+    toast.classList.add("show");
+
+    setTimeout(() => {
+        toast.classList.remove("show");
+    }, 2500);
+
+}
+
+</script>
+
+{% endblock %}
+```
