@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+
+{% block title %}Вход — LZORA{% endblock %}
+
+{% block content %}
+
+<section class="page-section auth-page">
+
+    <div class="container">
+
+        <div class="auth-layout">
+
+            <div class="auth-card card">
+
+                <div class="section-heading auth-card__heading">
+
+                    <h1 class="section-heading__title">
+                        Вход
+                    </h1>
+
+                    <p class="section-heading__description">
+                        Войдите в свой аккаунт LZORA.
+                    </p>
+
+                </div>
+
+                <form
+                    class="auth-form"
+                    data-login-form
+                    novalidate
+                >
+
+                    <div class="form-group">
+
+                        <label
+                            class="form-label"
+                            for="login-email"
+                        >
+                            Email
+                        </label>
+
+                        <input
+                            id="login-email"
+                            name="email"
+                            type="email"
+                            class="form-control"
+                            placeholder="example@mail.ru"
+                            autocomplete="email"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label
+                            class="form-label"
+                            for="login-password"
+                        >
+                            Пароль
+                        </label>
+
+                        <input
+                            id="login-password"
+                            name="password"
+                            type="password"
+                            class="form-control"
+                            placeholder="Введите пароль"
+                            autocomplete="current-password"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="auth-form__options">
+
+                        <label class="auth-checkbox">
+
+                            <input
+                                type="checkbox"
+                                name="remember"
+                            >
+
+                            <span>
+                                Запомнить меня
+                            </span>
+
+                        </label>
+
+                        <a href="#">
+                            Забыли пароль?
+                        </a>
+
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="button button--primary button--full"
+                    >
+                        Войти
+                    </button>
+
+                </form>
+
+                <div class="auth-card__footer">
+
+                    <span>
+                        Нет аккаунта?
+                    </span>
+
+                    <a href="{{ url_for('register') }}">
+                        Зарегистрироваться
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<div class="toast" data-toast aria-hidden="true"></div>
+
+{% endblock %}
