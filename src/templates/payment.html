@@ -1,0 +1,215 @@
+{% extends "base.html" %}
+
+{% block title %}Оплата — LZORA{% endblock %}
+
+{% block content %}
+
+<section class="page-section payment-page">
+    <div class="container">
+
+        <a href="{{ url_for('booking') }}" class="back-link">
+            ← Назад к записи
+        </a>
+
+        <div class="section-heading payment-page__heading">
+            <h1 class="section-heading__title">Оплата</h1>
+            <p class="section-heading__description">
+                Проверьте данные и завершите оформление записи.
+            </p>
+        </div>
+
+        <div class="payment-layout">
+
+            <main class="payment-content">
+
+                <section class="card payment-method-card">
+
+                    <div class="section-heading section-heading--compact">
+                        <h2 class="section-heading__title">
+                            Способ оплаты
+                        </h2>
+                        <p class="section-heading__description">
+                            Это демонстрационная форма оплаты.
+                        </p>
+                    </div>
+
+                    <div class="payment-methods">
+
+                        <button
+                            type="button"
+                            class="payment-method is-selected"
+                            data-payment-method="card"
+                        >
+                            <span class="payment-method__icon">
+                                CARD
+                            </span>
+
+                            <span class="payment-method__content">
+                                <strong>Банковская карта</strong>
+                                <small>Visa, Mastercard, МИР</small>
+                            </span>
+
+                            <span class="payment-method__check">
+                                ✓
+                            </span>
+                        </button>
+
+                        <button
+                            type="button"
+                            class="payment-method"
+                            data-payment-method="sbp"
+                        >
+                            <span class="payment-method__icon">
+                                СБП
+                            </span>
+
+                            <span class="payment-method__content">
+                                <strong>СБП</strong>
+                                <small>Оплата через приложение банка</small>
+                            </span>
+
+                            <span class="payment-method__check">
+                                ✓
+                            </span>
+                        </button>
+
+                    </div>
+
+                    <div class="payment-card-form" data-card-form>
+
+                        <div class="form-group">
+                            <label
+                                class="form-label"
+                                for="card-number"
+                            >
+                                Номер карты
+                            </label>
+
+                            <input
+                                id="card-number"
+                                name="card_number"
+                                type="text"
+                                class="form-control"
+                                placeholder="0000 0000 0000 0000"
+                                inputmode="numeric"
+                                maxlength="19"
+                            >
+                        </div>
+
+                        <div class="payment-form-row">
+
+                            <div class="form-group">
+                                <label
+                                    class="form-label"
+                                    for="card-expiry"
+                                >
+                                    Срок действия
+                                </label>
+
+                                <input
+                                    id="card-expiry"
+                                    name="card_expiry"
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="ММ/ГГ"
+                                    maxlength="5"
+                                >
+                            </div>
+
+                            <div class="form-group">
+                                <label
+                                    class="form-label"
+                                    for="card-cvc"
+                                >
+                                    CVC
+                                </label>
+
+                                <input
+                                    id="card-cvc"
+                                    name="card_cvc"
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="000"
+                                    inputmode="numeric"
+                                    maxlength="3"
+                                >
+                            </div>
+
+                        </div>
+
+                        <p class="payment-test-note">
+                            Тестовая форма. Реальные данные карты
+                            не используются и не сохраняются.
+                        </p>
+
+                    </div>
+
+                </section>
+
+            </main>
+
+            <aside class="payment-sidebar">
+
+                <div class="card card--booking payment-summary">
+
+                    <h2 class="booking-card__title">
+                        Ваша запись
+                    </h2>
+
+                    <div class="booking-card__row">
+                        <span>Специалист</span>
+                        <strong>Анна Петрова</strong>
+                    </div>
+
+                    <div class="booking-card__row">
+                        <span>Услуга</span>
+                        <strong>{{ service.name }}</strong>
+                    </div>
+
+                    <div class="booking-card__row">
+                        <span>Дата</span>
+                        <strong>{{ booking_date }}</strong>
+                    </div>
+
+                    <div class="booking-card__row">
+                        <span>Время</span>
+                        <strong>{{ booking_time }}</strong>
+                    </div>
+
+                    <div class="booking-card__row">
+                        <span>Продолжительность</span>
+                        <strong>{{ service.duration }} минут</strong>
+                    </div>
+
+                    <div class="booking-card__price">
+                        {% if service.price == 0 %}
+                            Бесплатно
+                        {% else %}
+                            {{ service.price }} ₽
+                        {% endif %}
+                    </div>
+
+                    <button
+                        type="button"
+                        class="button button--primary button--full"
+                        data-payment-submit
+                    >
+                        Оплатить
+                    </button>
+
+                    <p class="booking-summary-card__note">
+                        После оплаты вы получите подтверждение записи.
+                    </p>
+
+                </div>
+
+            </aside>
+
+        </div>
+
+    </div>
+</section>
+
+<div class="toast" data-toast aria-hidden="true"></div>
+
+{% endblock %}
