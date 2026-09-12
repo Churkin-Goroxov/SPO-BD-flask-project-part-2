@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>{% block title %}Flask Project{% endblock %}</title>
+    <title>{% block title %}LZORA{% endblock %}</title>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
@@ -12,13 +12,24 @@
 <body>
 
 <header>
-    <h1>Мой Flask-проект</h1>
+    <div class="container site-header__inner">
 
-    <nav>
-        <a href="{{ url_for('index') }}">Главная</a>
-        <a href="{{ url_for('about') }}">О проекте</a>
-        <a href="{{ url_for('changelog') }}">Лог изменений</a>
-    </nav>
+        <a href="{{ url_for('index') }}" class="logo"> 
+            LZORA 
+        </a>
+
+        <nav class="site-nav"> 
+            <a href="{{ url_for('search') }}" >Найти специалиста</a>
+            <a href="{{ url_for('categories') }}" >Категории</a>
+            <a href="#" >Как это работает</a>
+            <a href="#" >Для специалистов</a>
+        </nav>
+
+        <div class="site-header__actions">
+            <a href="#" class="button button--primary">Регистрация</a>
+            <a href="#" class="button button--secondary">Войти</a>
+        </div>
+    </div>
 </header>
 
 <main>
@@ -26,8 +37,10 @@
     {% endblock %}
 </main>
 
-<footer>
-    Flask Project
+<footer class="site-footer">
+    <div class="container">
+        <p> LZORA 2026 </p>
+    </div>
 </footer>
 
 </body>
